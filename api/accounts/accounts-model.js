@@ -1,9 +1,14 @@
+const db = require('../../data/db-config'); //pulling in database
+
 const getAll = () => {
   // DO YOUR MAGIC
+  //select * from accounts;
+  return db('accounts'); //this returns a promise in which the ACCOUNTS-ROUTER is using it!
 }
 
 const getById = id => {
-  // DO YOUR MAGIC
+  //select * from accounts where id = 1;
+  return db('accounts').where('id', id).first()
 }
 
 const create = account => {
