@@ -20,9 +20,11 @@ router.post(
  md.checkAccountPayload,
  md.checkAccountNameUnique,
  async (req, res, next) => {
-  // DO YOUR MAGIC
   try {
-    const newAccount = await Account.create(req.body)
+    const newAccount = await Account.create({ 
+      name: req.body.name.trim(),
+    budget: req.body.budget,
+  })
     res.status(201).json(newAccount)
   } catch (err) {
     next(err)
@@ -32,11 +34,10 @@ router.post(
 router.put('/:id',
  md.checkAccountId, 
  md.checkAccountPayload, 
- md.checkAccountNameUnique, 
- (req, res, next) => {
-  // DO YOUR MAGIC
+ async (req, res, next) => {
   try {
-    res.json('update account')
+    const updated = await Account.updateById(req.params.id, req.body)
+    res.json(updated)
   } catch (err) {
     next(err)
   }
